@@ -1,0 +1,4 @@
+*** Keywords ***
+打开浏览器
+    [Arguments]    ${browser}
+    Open Browser    ${guiurl}    ${browser}

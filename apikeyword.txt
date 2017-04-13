@@ -1,0 +1,24 @@
+*** Keywords ***
+创建用户
+    [Arguments]    ${url}    ${uri}    ${body}    ${message}    ${statuscode}
+    ${headers}    Create Dictionary    Content-Type    application/json
+    Create Session    session    ${url}
+    ${resp}=    Post Request    session    ${uri}    ${body}    headers=${headers}
+    log    ${resp.status_code}
+    log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${statuscode}
+    Should Contain    ${resp.content}    ${message}
+    ${json}    To JSON    ${resp.content}
+    ${deluri}    Replace String    ${json['url']}    ${url}    \    count=1
+    Delete All Sessions
+    [Return]    ${deluri}
+
+删除用户
+    [Arguments]    ${url}    ${uri}    ${message}    ${statuscode}
+    Create Session    session    ${url}
+    ${resp}=    Delete Request    session    ${uri}
+    log    ${resp.status_code}
+    log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${statuscode}
+    Should Contain    ${resp.content}    ${message}
+    Delete All Sessions

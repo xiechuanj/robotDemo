@@ -1,0 +1,40 @@
+*** Settings ***
+Library           RequestsLibrary
+Resource          apikeyword.txt
+Resource          guikeyword.txt
+Library           Collections
+Library           String
+Library           ExcelLibrary
+Library           AppiumLibrary
+
+*** Variables ***
+${guiurl}         http://www.baidu.com
+${apiurl}         http://localhost:8000
+
+*** Test Cases ***
+apiDemo
+    [Tags]    api
+    ${deluri}    创建用户    ${apiurl}    /users/    {"username": "admin1","email": "admin@qq.com","groups": []}    admin1    201
+    log    ${deluri}
+    删除用户    ${apiurl}    ${deluri}    \    204
+
+guiDemo
+    [Tags]    gui
+    @{var}    set variable    chrome    ff    ie
+    : FOR    ${browser}    IN    @{var}
+    \    Open Browser    ${guiurl}    browser=${browser}
+    \    Input Text    id=kw    中科云丛
+    \    Click Button    id=su
+    \    Sleep    5s
+    \    Close All Browsers
+    \    Sleep    5s
+
+androidDemo
+    [Tags]    and
+    Open Application    http://localhost:4723/wd/hub    platformName=Android    platformVersion=5.1.1    deviceName=emulator-5554    appPackage=com.android.settings    appActivity=.Settings
+    AppiumLibrary.Click Element    name=流量使用情况
+    AppiumLibrary.Click Element    name=关闭
+    AppiumLibrary.Element Attribute Should Match    name=开启    checked    true
+    #AppiumLibrary.Swipe
+    Sleep    5s
+    Close All Applications
