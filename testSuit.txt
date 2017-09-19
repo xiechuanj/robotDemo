@@ -9,7 +9,7 @@ Library           Selenium2Library
 
 *** Variables ***
 ${guiurl}         http://www.baidu.com
-${apiurl}         http://localhost:8000
+${apiurl}         http://10.10.10.11:8000
 
 *** Test Cases ***
 apiDemo
