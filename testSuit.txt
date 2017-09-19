@@ -4,7 +4,6 @@ Resource          apikeyword.txt
 Resource          guikeyword.txt
 Library           Collections
 Library           String
-Library           ExcelLibrary
 Library           AppiumLibrary
 
 *** Variables ***
