@@ -24,9 +24,9 @@ guiDemo
     : FOR    ${browser}    IN    @{var}
     \    Open Browser    ${guiurl}    browser=${browser}
     \    Selenium2Library.Input Text    id=kw    中科云丛
-    \    Click Button    id=su
+    \    Selenium2Library.Click Button    id=su
     \    Sleep    5s
-    \    Close All Browsers
+    \    Selenium2Library.Close All Browsers
     \    Sleep    5s
 
 androidDemo
