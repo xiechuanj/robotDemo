@@ -5,6 +5,7 @@ Resource          guikeyword.txt
 Library           Collections
 Library           String
 Library           AppiumLibrary
+Library           Selenium2Library
 
 *** Variables ***
 ${guiurl}         http://www.baidu.com
