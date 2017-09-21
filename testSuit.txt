@@ -4,7 +4,7 @@ Resource          apikeyword.txt
 Resource          guikeyword.txt
 Library           Collections
 Library           String
-Library           AppiumLibrary
+#Library           AppiumLibrary
 Library           Selenium2Library
 
 *** Variables ***
