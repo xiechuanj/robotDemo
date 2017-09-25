@@ -25,7 +25,6 @@ guiDemo
     \    Open Browser    ${guiurl}    browser=${browser}
     \    Selenium2Library.Input Text    id=kw    devops
     \    Selenium2Library.Click Button   id=su
-    \    Capture Page Screenshot	1.png
     \    Sleep    5s
     \    Selenium2Library.Close All Browsers
     \    Sleep    5s
