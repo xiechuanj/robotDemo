@@ -8,6 +8,8 @@ Library           String
 Library           Selenium2Library
 
 
+
+
 *** Variables ***
 ${guiurl}         http://www.baidu.com
 ${apiurl}         http://10.10.10.11:8000
