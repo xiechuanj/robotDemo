@@ -1,17 +1,17 @@
 *** Keywords ***
-创建用户
-    [Arguments]    ${url}    ${uri}    ${body}    ${message}    ${statuscode}
+带参数的GET请求
+    [Arguments]    ${url}    ${uri}    ${params}    ${statuscode}
     ${headers}    Create Dictionary    Content-Type    application/json
     Create Session    session    ${url}
-    ${resp}=    Post Request    session    ${uri}    ${body}    headers=${headers}
+    ${resp}=    RequestsLibrary.Get Request    session    ${uri}    headers=${headers}    params=${params}
     log    ${resp.status_code}
     log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${statuscode}
-    Should Contain    ${resp.content}    ${message}
+    Should Contain    ${resp.content}.decode()    ${params}
     ${json}    To JSON    ${resp.content}
-    ${deluri}    Replace String    ${json['url']}    ${url}    \    count=1
+    ${args}    set variable    ${json['args']}
     Delete All Sessions
-    [Return]    ${deluri}
+    [Return]    ${args}
 
 删除用户
     [Arguments]    ${url}    ${uri}    ${message}    ${statuscode}
@@ -22,3 +22,18 @@
     Should Be Equal As Strings    ${resp.status_code}    ${statuscode}
     Should Contain    ${resp.content}    ${message}
     Delete All Sessions
+
+POST请求
+    [Arguments]    ${url}    ${uri}    ${json}    ${statuscode}
+    ${headers}    Create Dictionary    Content-Type    application/json
+    Create Session    session    ${url}
+    ${resp}=    RequestsLibrary.Post Request    session    ${uri}    headers=${headers}    json=${json}
+    log    ${resp.status_code}
+    log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${statuscode}
+    ${content}    Convert To String    ${resp.content}
+    #Should Contain    ${resp.content}.decode()    ${json.keys[0]}
+    ${json}    To JSON    ${resp.content}
+    ${json}    set variable    ${json['json']}
+    Delete All Sessions
+    [Return]    ${json}
